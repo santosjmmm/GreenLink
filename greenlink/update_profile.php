@@ -1,4 +1,0 @@
-<?php include 'db_config.php'; header('Content-Type: application/json');
-$user_id   = $_POST['user_id']; $full_name = $_POST['full_name']; $username  = $_POST['username']; $email     = $_POST['email']; $phone     = $_POST['phone']; $address   = $_POST['address']; $region    = $_POST['region']; $province  = $_POST['province']; $city      = $_POST['city']; $barangay  = $_POST['barangay']; $lat       = $_POST['lat']; $lng       = $_POST['lng'];
-$sql = "UPDATE users SET full_name = '$full_name', username = '$username', email = '$email', contact_num = '$phone', address = '$address', region = '$region', province = '$province', city = '$city', barangay = '$barangay', latitude = '$lat', longitude = '$lng' WHERE user_id = '$user_id'";
-if ($conn->query($sql) === TRUE) { echo json_encode(["success" => true, "message" => "Profile updated"]); } else { echo json_encode(["success" => false, "message" => $conn->error]); } $conn->close(); ?>
