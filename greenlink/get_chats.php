@@ -1,0 +1,4 @@
+<?php include 'db_config.php'; header('Content-Type: application/json');
+$user_id = $_GET['user_id'];
+$sql = "SELECT u.user_id as other_user_id, u.full_name as other_user_name, m.message as last_message, m.created_at as time, (SELECT COUNT(*) FROM messages WHERE sender_id = u.user_id AND receiver_id = '$user_id' AND is_read = 0) as unread_count FROM messages m JOIN users u ON (m.sender_id = u.user_id OR m.receiver_id = u.user_id) WHERE (m.sender_id = '$user_id' OR m.receiver_id = '$user_id') AND u.user_id != '$user_id' AND m.message_id IN ( SELECT MAX(message_id) FROM messages WHERE sender_id = '$user_id' OR receiver_id = '$user_id' GROUP BY IF(sender_id = '$user_id', receiver_id, sender_id) ) ORDER BY m.created_at DESC";
+$result = $conn->query($sql); $rows = array(); if ($result) { while($r = $result->fetch_assoc()) { $rows[] = $r; } } echo json_encode($rows); $conn->close(); ?>
