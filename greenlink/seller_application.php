@@ -30,7 +30,7 @@ else if ($method === 'POST') {
             $filename = time() . "_" . $file_key . ".jpg";
             $target_file = $target_dir . $filename;
             if(move_uploaded_file($_FILES[$file_key]["tmp_name"], $target_file)) {
-                return "http://10.0.2.2/greenlink/" . $target_file;
+                return "https://greenlink-production-4dcb.up.railway.app/" . $target_file;
             }
             return null;
         }
